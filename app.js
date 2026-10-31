@@ -16,7 +16,7 @@
   const escape = (v) => String(v).replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const dateLabel = () => '26 октября';
   const btn = (text,route,cls='') => `<a class="btn ${cls}" href="#${route}">${text}</a>`;
-  const crumb = (name) => `<div class="breadcrumb"><a href="#search">ПреподНавигатор</a><span> / </span><span>${name}</span></div>`;
+  const crumb = (name) => `<div class="breadcrumb"><a href="#search">Кафедра Онлайн</a><span> / </span><span>${name}</span></div>`;
   const teacherMini = () => `<div class="selected-teacher"><span class="initials">ИА</span><div><h3>${teacher.name}</h3><p>${teacher.department}</p></div></div>`;
   function renderSearch() {
     const empty = state.view === 'empty';
@@ -40,7 +40,7 @@
     content.innerHTML = ({search:renderSearch,teacher:renderTeacher,status:renderStatus,subscribe:renderSubscribe})[state.route]();
     shell.dataset.screen = state.route;
     document.querySelectorAll('[data-demo-route],[data-route]').forEach((a)=>a.setAttribute('aria-current',(a.dataset.demoRoute || a.dataset.route) === state.route ? 'page' : 'false'));
-    document.title = `${{search:'Поиск',teacher:'Карточка',status:'Статус',subscribe:'Подписка'}[state.route]} · Макеты 1.6`;
+    document.title = `${{search:'Поиск',teacher:'Карточка',status:'Статус',subscribe:'Подписка'}[state.route]} · Кафедра Онлайн`;
   }
   function onHash() {
     const next = location.hash.slice(1);

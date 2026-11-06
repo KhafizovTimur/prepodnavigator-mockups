@@ -5,13 +5,13 @@
   const content = $('#app-content');
   const statePicker = $('#demo-state');
   const teacher = {name:'Иванов Алексей Сергеевич',department:'Кафедра прикладной информатики',subject:'Математика · Информационные системы'};
-  // This state only chooses drawings. No search, publication or subscription logic.
+  // Form actions switch the demo state in this tab.
   const state = {route:'search',view:'normal',date:'2026-10-26',from:'14:00',to:'15:00',room:'214',building:'Корпус 1',comment:'Консультация по математике'};
   const options = {
     search:[['normal','Результат поиска'],['empty','Пустой поиск']],
     teacher:[['normal','Обычная карточка'],['stale','Устаревшие сведения']],
     status:[['normal','Форма статуса'],['confirmation','Вид подтверждения']],
-    subscribe:[['normal','Форма подписки'],['connected','Вид с отменой подписки']]
+    subscribe:[['normal','Форма подписки'],['connected','Подписка подключена'],['cancelled','Подписка отменена']]
   };
   const escape = (v) => String(v).replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const dateLabel = () => '26 октября';
@@ -29,11 +29,11 @@
 
 
   function renderStatus() {
-    return `<div class="content-width form-page">${crumb('Форма статуса')}<div class="form-page-head"><h1>Опубликовать статус</h1><p class="lead">Форма для преподавателя или сотрудника кафедры.</p></div><section class="form-panel mock-form"><div class="form-grid"><label class="field full">Преподаватель<select disabled><option>${teacher.name}</option></select></label><label class="field full">Дата статуса<input type="date" value="2026-10-26" readonly></label><label class="field">С какого времени<input type="time" value="14:00" readonly></label><label class="field">До какого времени<input type="time" value="15:00" readonly></label><label class="field">Корпус<select disabled><option>Корпус 1</option></select></label><label class="field">Кабинет<input value="214" readonly></label><label class="field full">Комментарий<input value="Консультация по математике" readonly></label></div><div class="form-actions"><span class="small">Статус на выбранную дату</span><button type="button" class="btn btn-primary" disabled>Сохранить</button></div>${state.view === 'confirmation' ? '<div class="mock-confirmation">✓ Статус сохранён</div>' : ''}</section></div>`;
+    return `<div class="content-width form-page">${crumb('Форма статуса')}<div class="form-page-head"><h1>Опубликовать статус</h1><p class="lead">Форма для преподавателя или сотрудника кафедры.</p></div><section class="form-panel mock-form"><div class="form-grid"><label class="field full">Преподаватель<select disabled><option>${teacher.name}</option></select></label><label class="field full">Дата статуса<input type="date" value="2026-10-26" readonly></label><label class="field">С какого времени<input type="time" value="14:00" readonly></label><label class="field">До какого времени<input type="time" value="15:00" readonly></label><label class="field">Корпус<select disabled><option>Корпус 1</option></select></label><label class="field">Кабинет<input value="214" readonly></label><label class="field full">Комментарий<input value="Консультация по математике" readonly></label></div><div class="form-actions"><span class="small">Статус на выбранную дату</span><button type="button" class="btn btn-primary" data-demo-action="confirmation">Сохранить</button></div>${state.view === 'confirmation' ? '<div class="mock-confirmation" role="status" tabindex="-1">✓ Статус сохранён</div><p><a class="back-link" href="#teacher">Посмотреть карточку →</a></p>' : ''}</section></div>`;
   }
   function renderSubscribe() {
     const connected = state.view === 'connected';
-    return `<div class="content-width form-page">${crumb('Подписка')}<div class="form-page-head"><h1>Подписка на изменения</h1><p class="lead">Уведомления о консультациях, пересдачах и статусе преподавателя.</p></div><section class="form-panel mock-form">${teacherMini()}<label class="field">Электронная почта<input type="text" value="student@example.com" readonly></label><p class="group-label">О чём сообщать</p><div class="check-group"><label class="check-line"><input type="checkbox" checked disabled><span>Изменения консультаций</span></label><label class="check-line"><input type="checkbox" checked disabled><span>Изменения графика пересдач</span></label><label class="check-line"><input type="checkbox" checked disabled><span>Статус на день</span></label></div><div class="subscription-save">${connected ? '<p class="small">Подписка подключена</p><button type="button" class="btn" disabled>Отменить подписку</button>' : '<button type="button" class="btn btn-primary" disabled>Подписаться</button>'}</div></section></div>`;
+    return `<div class="content-width form-page">${crumb('Подписка')}<a class="back-link" href="#teacher">← К карточке преподавателя</a><div class="form-page-head"><h1>Подписка на изменения</h1><p class="lead">Уведомления о консультациях, пересдачах и статусе преподавателя.</p></div><section class="form-panel mock-form">${teacherMini()}<label class="field">Электронная почта<input type="text" value="student@example.com" readonly></label><p class="group-label">О чём сообщать</p><div class="check-group"><label class="check-line"><input type="checkbox" checked disabled><span>Изменения консультаций</span></label><label class="check-line"><input type="checkbox" checked disabled><span>Изменения графика пересдач</span></label><label class="check-line"><input type="checkbox" checked disabled><span>Статус на день</span></label></div><div class="subscription-save">${connected ? '<p class="small" role="status" tabindex="-1">✓ Подписка подключена</p><button type="button" class="btn" data-demo-action="cancelled">Отменить подписку</button>' : '<button type="button" class="btn btn-primary" data-demo-action="connected">Подписаться</button>'}${state.view === 'cancelled' ? '<p class="mock-confirmation" role="status" tabindex="-1">Подписка отменена</p>' : ''}</div></section></div>`;
   }
   function render() {
     statePicker.innerHTML = options[state.route].map(([value,label])=>`<option value="${value}" ${state.view === value ? 'selected' : ''}>${label}</option>`).join('');
@@ -49,6 +49,13 @@
     render();
     window.scrollTo({top:0,behavior:'instant'});
   }
+  content.addEventListener('click', (event) => {
+    const action = event.target.closest('[data-demo-action]');
+    if (!action) return;
+    state.view = action.dataset.demoAction;
+    render();
+    content.querySelector('[role="status"]')?.focus();
+  });
   statePicker.addEventListener('change',(event)=>{state.view = event.target.value;render();});
   document.querySelectorAll('button[data-device]').forEach((button)=>button.addEventListener('click',()=>{
     shell.dataset.device = button.dataset.device;

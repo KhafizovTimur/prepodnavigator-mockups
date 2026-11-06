@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Поиск преподавателя · Кафедра Онлайн</title>
+  <link rel="stylesheet" href="./assets/fonts.css">
+  <link rel="stylesheet" href="./assets/style.css">
+  <script src="./pages.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержанию</a>
+  <div class="project-strip">
+    <div class="container strip-inner"><strong>Учебный проект</strong><a href="https://timetable.tyuiu.ru/">Расписание взято с сайта ТИУ ↗</a></div>
+  </div>
+  <header class="app-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="Кафедра Онлайн — на главную">
+        <img src="./assets/tiu-logo.svg" width="142" height="36" alt="">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-name">Кафедра <span>Онлайн</span></span>
+      </a>
+      <nav aria-label="Главное меню"><a class="nav-link" href="./">Поиск преподавателя</a></nav>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+      <section class="search-hero"><div class="container hero-inner">
+        <h1>Найти преподавателя</h1>
+        <p class="lead">Посмотрите, когда и в каком кабинете проходят занятия.</p>
+        <form class="search-form" action="./" method="get" role="search">
+          <fieldset class="search-types"><legend class="visually-hidden">Искать</legend>
+            <label><input type="radio" name="by" value="name" checked><span>По ФИО</span></label>
+            <label><input type="radio" name="by" value="subject" ><span>По предмету</span></label>
+          </fieldset>
+          <div class="search-box"><div class="search-input-wrap"><span class="search-icon" aria-hidden="true"></span>
+            <label for="query" class="visually-hidden">Фамилия или название предмета</label>
+            <input type="search" id="query" name="q" value="" maxlength="120" autocomplete="off" placeholder="Фамилия или название предмета">
+          </div><button class="btn btn-primary" type="submit">Найти <span aria-hidden="true">→</span></button></div>
+        </form>
+      </div></section>
+      <section class="container search-results" aria-labelledby="results-title">
+        <div class="results-heading"><h2 id="results-title">Каталог преподавателей</h2><span id="results-total"></span></div>
+        <div id="results" aria-live="polite"><p>Загружаем каталог преподавателей…</p>
+          <noscript><p>Включите JavaScript в браузере, чтобы искать преподавателей.</p></noscript></div>
+      </section></main>
+  <footer class="container app-footer">
+    <span>Кафедра Онлайн · учебный проект ИСПб-25-1</span>
+    <a href="https://timetable.tyuiu.ru/">Источник расписания · timetable.tyuiu.ru ↗</a>
+  </footer>
+</body>
+</html>

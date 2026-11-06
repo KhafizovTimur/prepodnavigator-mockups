@@ -6,6 +6,11 @@
   <title>Кафедра Онлайн — макеты Хафизова Т.В.</title>
   <link rel="stylesheet" href="assets/fonts.css">
   <link rel="stylesheet" href="style.css">
+  <script>
+    if (!location.hash && !new URLSearchParams(location.search).has("mockups")) {
+      location.replace("./schedule/");
+    }
+  </script>
   <script src="app.js?v=20261107" defer></script>
 </head>
 <body>
@@ -14,6 +19,7 @@
     <div class="tools-row">
       <nav aria-label="Экраны макета" class="prototype-nav">
         <a href="#search" data-demo-route="search">Поиск</a><a href="#teacher" data-demo-route="teacher">Карточка</a><a href="#status" data-demo-route="status">Статус</a><a href="#subscribe" data-demo-route="subscribe">Подписка</a>
+        <a href="schedule/">Рабочая версия ↗</a>
       </nav>
       <div class="preview-options"><label class="state-picker">Состояние <select id="demo-state" aria-label="Состояние экрана"></select></label><div class="device-picker" aria-label="Размер макета"><button type="button" data-device="desktop" aria-pressed="true">Компьютер</button><button type="button" data-device="mobile" aria-pressed="false">Телефон</button></div></div>
     </div>

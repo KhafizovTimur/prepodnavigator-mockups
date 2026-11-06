@@ -149,6 +149,10 @@ h3 { font-size: 1rem; }
 .teacher-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(205px, 260px); align-items: start; gap: 24px; }
 .teacher-sidebar, .appointment-panels { display: grid; gap: 14px; }
 .appointment-panels { margin-top: 24px; }
+.side-panel .retake-list { list-style: none; padding: 0; }
+.retake-list li { padding: 10px 0; border-top: 1px solid var(--line); }
+.retake-list small { font-size: 0.76rem; }
+#retakes h3 { margin-top: 12px; }
 .week-panel { padding: 18px 20px; margin-bottom: 18px; border: 1px solid #dae6ff; border-left: 3px solid var(--action); border-radius: 5px; background: var(--pale); }
 .week-panel h2 { color: var(--blue); }
 .week-panel p { margin-top: 9px; font-size: 0.82rem; }

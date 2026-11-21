@@ -31,6 +31,7 @@
         <div class="teacher-layout">
           <div>
           <section aria-labelledby="schedule-title">
+            <p class="week-panel"><strong id="next-retake"></strong> <a href="#retakes">К графику пересдач ↓</a></p>
             <div class="week-panel"><h2 id="schedule-title">Расписание занятий</h2>
               <form class="week-form" action="./" method="get">
                 <input type="hidden" name="q" value=""><input type="hidden" name="by" value="name">
@@ -48,7 +49,7 @@
     </li><li class="schedule-row">
       <span class="time">09:45–11:20</span>
       <div><strong>Моделирование процессов в природно-техногенных комплексах криолитозоны</strong><p>лекция · ИГНб-23-1</p></div>
-      <div class="where">Корпус 7 · каб. 920<span>Мельникайте, 70</span></div>
+      <div class="where">Корпус 7 · каб. 803<span>Мельникайте, 70</span></div>
     </li></ul></section></div>
             <template data-period="even"><section class="schedule-day"><h3>Суббота</h3><ul><li class="schedule-row">
       <span class="time">08:00–09:35</span>
@@ -65,21 +66,22 @@
     </li><li class="schedule-row">
       <span class="time">09:45–11:20</span>
       <div><strong>Моделирование процессов в природно-техногенных комплексах криолитозоны</strong><p>лекция · ИГНб-23-1</p></div>
-      <div class="where">Корпус 7 · каб. 920<span>Мельникайте, 70</span></div>
+      <div class="where">Корпус 7 · каб. 803<span>Мельникайте, 70</span></div>
     </li></ul></section></template><template id="empty-schedule"><div class="empty-state"><h3>Нет занятий в этом разделе</h3><p>Выберите другую неделю или проверьте расписание на сайте ТИУ.</p></div></template>
           </section>
           <div class="appointment-panels">
       <section class="side-panel"><h2>Консультации</h2><p class="muted">График консультаций в карточке не указан.</p></section>
       <section class="side-panel" id="retakes"><h2>Пересдачи</h2>
-        <p class="muted">Актуальный график пересдач в карточке не указан.</p><p>Уточните дату на кафедре или в <a href="https://educon2.tyuiu.ru/">Educon2</a>.</p>
+        <p id="no-retakes" class="muted">Актуальный график пересдач в карточке не указан.</p><p>Уточните дату на кафедре или в <a href="https://educon2.tyuiu.ru/">Educon2</a>.</p>
       </section></div>
           </div>
           <aside class="teacher-sidebar"><section class="side-panel"><h2>Источник расписания</h2>
             <p>Расписание взято с <a href="https://timetable.tyuiu.ru/">сайта ТИУ ↗</a></p>
-            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1563">Очная форма ↗</a></li></ul><p class="side-note">Загружено 07.11.2026, 02:47 по Тюмени.</p>
+            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1563">Очная форма ↗</a></li></ul><p class="side-note">Загружено 21.11.2026, 05:26 по Тюмени.</p>
           </section><section class="side-panel"><h2>Контакты кафедры</h2>
           <p class="muted">Адрес, кабинет, этаж и контакты кафедры в карточке не указаны.</p>
           <p><a href="https://www.tyuiu.ru/sveden/struct/">Справочник ТИУ ↗</a></p></section></aside>
+          <script src="../../assets/retakes.js" defer></script>
         </div>
       </div></main>
   <footer class="container app-footer">

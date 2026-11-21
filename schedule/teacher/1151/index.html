@@ -31,6 +31,7 @@
         <div class="teacher-layout">
           <div>
           <section aria-labelledby="schedule-title">
+            <p class="week-panel"><strong id="next-retake"></strong> <a href="#retakes">К графику пересдач ↓</a></p>
             <div class="week-panel"><h2 id="schedule-title">Расписание занятий</h2>
               <form class="week-form" action="./" method="get">
                 <input type="hidden" name="q" value=""><input type="hidden" name="by" value="name">
@@ -114,8 +115,8 @@
       <span class="time">19:00–20:25</span>
       <div><strong>Проектирование и эксплуатация магистральных нефтепроводов</strong><p>лабораторная · МТХз-23-1 (подгр. 2)</p></div>
       <div class="where">Корпус 2 · каб. 367<span>Мельникайте, 72</span></div>
-    </li><li class="schedule-row">
-      <span class="time">20:35–22:00</span>
+    </li></ul></section><section class="schedule-day"><h3>Среда, 9 декабря</h3><ul><li class="schedule-row">
+      <span class="time">09:45–11:20</span>
       <div><strong>Проектирование и эксплуатация магистральных нефтепроводов</strong><p>лабораторная · МТХз-23-1 (подгр. 2)</p></div>
       <div class="where">Корпус 2 · каб. 367<span>Мельникайте, 72</span></div>
     </li></ul></section></template><template data-period="even"><section class="schedule-day"><h3>Понедельник</h3><ul><li class="schedule-row">
@@ -207,23 +208,24 @@
           <div class="appointment-panels">
       <section class="side-panel"><h2>Консультации</h2><p class="muted">График консультаций в карточке не указан.</p></section>
       <section class="side-panel" id="retakes"><h2>Пересдачи</h2>
-        <h3>Комиссии по датам</h3><ul class="retake-list"><li><strong>17.11.2026 · 13:05–13:45</strong><br>
+        <div id="commissions"><h3>Комиссии по датам</h3><ul class="retake-list"><li data-date="2026-11-24" data-time="13:05–13:45" data-place="Корпус 7 · ауд. 726"><strong>24.11.2026 · 13:05–13:45</strong><br>
           Моделирование технологических процессов с применением машинного обучения<br>АДб-24-2, АДб-24-4, ИСДб-24-1, ПГСб-24-9, ПСКб-24-1, ТГВб-24-3, ИСТНб-24-1<br>
-          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li><li><strong>24.11.2026 · 13:05–13:45</strong><br>
+          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li><li data-date="2026-12-01" data-time="13:05–13:45" data-place="Корпус 7 · ауд. 726"><strong>01.12.2026 · 13:05–13:45</strong><br>
           Моделирование технологических процессов с применением машинного обучения<br>АДб-24-2, АДб-24-4, ИСДб-24-1, ПГСб-24-9, ПСКб-24-1, ТГВб-24-3, ИСТНб-24-1<br>
-          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li><li><strong>01.12.2026 · 13:05–13:45</strong><br>
+          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li></ul></div><details id="past-commissions"><summary>Прошедшие комиссии</summary><ul class="retake-list"><li data-date="2026-11-03" data-time="13:05–13:45" data-place="Корпус 7 · ауд. 726"><strong>03.11.2026 · 13:05–13:45</strong><br>
           Моделирование технологических процессов с применением машинного обучения<br>АДб-24-2, АДб-24-4, ИСДб-24-1, ПГСб-24-9, ПСКб-24-1, ТГВб-24-3, ИСТНб-24-1<br>
-          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li></ul><details><summary>Прошедшие комиссии</summary><ul class="retake-list"><li><strong>03.11.2026 · 13:05–13:45</strong><br>
+          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li><li data-date="2026-11-17" data-time="13:05–13:45" data-place="Корпус 7 · ауд. 726"><strong>17.11.2026 · 13:05–13:45</strong><br>
           Моделирование технологических процессов с применением машинного обучения<br>АДб-24-2, АДб-24-4, ИСДб-24-1, ПГСб-24-9, ПСКб-24-1, ТГВб-24-3, ИСТНб-24-1<br>
-          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li></ul></details><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
+          Корпус 7 · ауд. 726 · Член комиссии<br><small class="muted">Источник · комиссии кафедра ТУР Нефтегаз, стр. 1</small></li></ul></details><p id="no-retakes" class="muted" hidden>Актуальный график пересдач в карточке не указан.</p><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
       </section></div>
           </div>
           <aside class="teacher-sidebar"><section class="side-panel"><h2>Источник расписания</h2>
             <p>Расписание взято с <a href="https://timetable.tyuiu.ru/">сайта ТИУ ↗</a></p>
-            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1151">Очная форма ↗</a></li><li><a href="https://timetable.tyuiu.ru/schedule/teacher/98363">Заочная форма ↗</a></li></ul><p class="side-note">Загружено 07.11.2026, 02:47 по Тюмени.</p>
+            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1151">Очная форма ↗</a></li><li><a href="https://timetable.tyuiu.ru/schedule/teacher/98363">Заочная форма ↗</a></li></ul><p class="side-note">Загружено 21.11.2026, 05:26 по Тюмени.</p>
           </section><section class="side-panel"><h2>Контакты кафедры</h2>
           <p class="muted">Адрес, кабинет, этаж и контакты кафедры в карточке не указаны.</p>
           <p><a href="https://www.tyuiu.ru/sveden/struct/">Справочник ТИУ ↗</a></p></section></aside>
+          <script src="../../assets/retakes.js" defer></script>
         </div>
       </div></main>
   <footer class="container app-footer">

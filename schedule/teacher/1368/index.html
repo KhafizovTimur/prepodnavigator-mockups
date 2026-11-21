@@ -31,6 +31,7 @@
         <div class="teacher-layout">
           <div>
           <section aria-labelledby="schedule-title">
+            <p class="week-panel"><strong id="next-retake"></strong> <a href="#retakes">К графику пересдач ↓</a></p>
             <div class="week-panel"><h2 id="schedule-title">Расписание занятий</h2>
               <form class="week-form" action="./" method="get">
                 <input type="hidden" name="q" value=""><input type="hidden" name="by" value="name">
@@ -187,15 +188,16 @@
           <div class="appointment-panels">
       <section class="side-panel"><h2>Консультации</h2><p class="muted">График консультаций в карточке не указан.</p></section>
       <section class="side-panel" id="retakes"><h2>Пересдачи</h2>
-        <p class="muted">Актуальный график пересдач в карточке не указан.</p><p>Уточните дату на кафедре или в <a href="https://educon2.tyuiu.ru/">Educon2</a>.</p>
+        <p id="no-retakes" class="muted">Актуальный график пересдач в карточке не указан.</p><p>Уточните дату на кафедре или в <a href="https://educon2.tyuiu.ru/">Educon2</a>.</p>
       </section></div>
           </div>
           <aside class="teacher-sidebar"><section class="side-panel"><h2>Источник расписания</h2>
             <p>Расписание взято с <a href="https://timetable.tyuiu.ru/">сайта ТИУ ↗</a></p>
-            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1368">Очная форма ↗</a></li></ul><p class="side-note">Загружено 07.11.2026, 02:47 по Тюмени.</p>
+            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1368">Очная форма ↗</a></li></ul><p class="side-note">Загружено 21.11.2026, 05:26 по Тюмени.</p>
           </section><section class="side-panel"><h2>Контакты кафедры</h2>
           <p class="muted">Адрес, кабинет, этаж и контакты кафедры в карточке не указаны.</p>
           <p><a href="https://www.tyuiu.ru/sveden/struct/">Справочник ТИУ ↗</a></p></section></aside>
+          <script src="../../assets/retakes.js" defer></script>
         </div>
       </div></main>
   <footer class="container app-footer">

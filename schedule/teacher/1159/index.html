@@ -31,6 +31,7 @@
         <div class="teacher-layout">
           <div>
           <section aria-labelledby="schedule-title">
+            <p class="week-panel"><strong id="next-retake"></strong> <a href="#retakes">К графику пересдач ↓</a></p>
             <div class="week-panel"><h2 id="schedule-title">Расписание занятий</h2>
               <form class="week-form" action="./" method="get">
                 <input type="hidden" name="q" value=""><input type="hidden" name="by" value="name">
@@ -89,10 +90,6 @@
       <span class="time">17:15–18:50</span>
       <div><strong>Физика</strong><p>лекция · САУПб-25-1, УЭПб-25-1</p></div>
       <div class="where">Корпус 7 · каб. 710<span>Мельникайте, 70</span></div>
-    </li></ul></section><section class="schedule-day"><h3>Суббота</h3><ul><li class="schedule-row">
-      <span class="time">11:30–13:05</span>
-      <div><strong>Физика</strong><p>лабораторная · ТГР-25-1 (подгр. 1), ТГР-25-2 (подгр. 1)</p></div>
-      <div class="where">Корпус 3 · каб. 523<span>50 лет Октября, 38</span></div>
     </li></ul></section></div>
             <template data-period="even"><section class="schedule-day"><h3>Понедельник</h3><ul><li class="schedule-row">
       <span class="time">09:45–11:20</span>
@@ -111,13 +108,9 @@
       <div><strong>Физика</strong><p>практика · НДб-25-1 (подгр. 1), НДб-25-3 (подгр. 1)</p></div>
       <div class="where">Корпус 3 · каб. 519<span>50 лет Октября, 38</span></div>
     </li></ul></section><section class="schedule-day"><h3>Вторник</h3><ul><li class="schedule-row">
-      <span class="time">08:00–09:35</span>
-      <div><strong>Физика</strong><p>лабораторная · УЭПб-25-1 (подгр. 2)</p></div>
-      <div class="where">Корпус 3 · каб. 517<span>50 лет Октября, 38</span></div>
-    </li><li class="schedule-row">
       <span class="time">11:30–13:05</span>
-      <div><strong>Физика</strong><p>лабораторная · НДб-25-1 (подгр. 1), НДб-25-3 (подгр. 1)</p></div>
-      <div class="where">Корпус 3 · каб. 517<span>50 лет Октября, 38</span></div>
+      <div><strong>Физика</strong><p>лабораторная · УЭПб-25-1 (подгр. 2)</p></div>
+      <div class="where">Корпус 3 · каб. 337<span>50 лет Октября, 38</span></div>
     </li><li class="schedule-row">
       <span class="time">13:45–15:20</span>
       <div><strong>Физика</strong><p>лабораторная · ПМКб-25-1 (подгр. 1)</p></div>
@@ -135,13 +128,13 @@
       <div><strong>Физика</strong><p>лекция · ПМКб-25-1, РДб-25-1</p></div>
       <div class="where">Корпус 3 · каб. 332<span>50 лет Октября, 38</span></div>
     </li><li class="schedule-row">
+      <span class="time">13:45–15:20</span>
+      <div><strong>Физика</strong><p>лабораторная · НДб-25-1 (подгр. 1), НДб-25-3 (подгр. 1)</p></div>
+      <div class="where">Корпус 3 · каб. 517<span>50 лет Октября, 38</span></div>
+    </li><li class="schedule-row">
       <span class="time">15:30–17:05</span>
       <div><strong>Физика</strong><p>лабораторная · ПМКб-25-1 (подгр. 2)</p></div>
       <div class="where">Корпус 3 · каб. 517<span>50 лет Октября, 38</span></div>
-    </li><li class="schedule-row">
-      <span class="time">17:15–18:50</span>
-      <div><strong>Физика</strong><p>практика · УЭПб-25-1</p></div>
-      <div class="where">Корпус 3 · каб. 337<span>50 лет Октября, 38</span></div>
     </li></ul></section></template><template data-period="odd"><section class="schedule-day"><h3>Понедельник</h3><ul><li class="schedule-row">
       <span class="time">09:45–11:20</span>
       <div><strong>Вибродиагностика</strong><p>лабораторная · ПМКб-23-1 (подгр. 1)</p></div>
@@ -190,28 +183,25 @@
       <span class="time">17:15–18:50</span>
       <div><strong>Физика</strong><p>лекция · САУПб-25-1, УЭПб-25-1</p></div>
       <div class="where">Корпус 7 · каб. 710<span>Мельникайте, 70</span></div>
-    </li></ul></section><section class="schedule-day"><h3>Суббота</h3><ul><li class="schedule-row">
-      <span class="time">11:30–13:05</span>
-      <div><strong>Физика</strong><p>лабораторная · ТГР-25-1 (подгр. 1), ТГР-25-2 (подгр. 1)</p></div>
-      <div class="where">Корпус 3 · каб. 523<span>50 лет Октября, 38</span></div>
     </li></ul></section></template><template id="empty-schedule"><div class="empty-state"><h3>Нет занятий в этом разделе</h3><p>Выберите другую неделю или проверьте расписание на сайте ТИУ.</p></div></template>
           </section>
           <div class="appointment-panels">
       <section class="side-panel"><h2>Консультации</h2><p class="muted">График консультаций в карточке не указан.</p></section>
       <section class="side-panel" id="retakes"><h2>Пересдачи</h2>
-        <h3>Комиссии по датам</h3><ul class="retake-list"><li><strong>25.11.2026 · 12:00</strong><br>
+        <div id="commissions"><h3>Комиссии по датам</h3><ul class="retake-list"><li data-date="2026-11-25" data-time="12:00" data-place="Корпус 3 · ауд. 520"><strong>25.11.2026 · 12:00</strong><br>
           Физика<br>По списку групп в распоряжении<br>
-          Корпус 3 · ауд. 520 · Член комиссии<br><small class="muted">Источник · 357-1ах ФПС_ФИЗИКА, стр. 1</small></li></ul><details><summary>Прошедшие комиссии</summary><ul class="retake-list"><li><strong>28.10.2026 · 13:00</strong><br>
+          Корпус 3 · ауд. 520 · Член комиссии<br><small class="muted">Источник · 357-1ах ФПС_ФИЗИКА, стр. 1</small></li></ul></div><details id="past-commissions"><summary>Прошедшие комиссии</summary><ul class="retake-list"><li data-date="2026-10-28" data-time="13:00" data-place="Корпус 3 · ауд. 520"><strong>28.10.2026 · 13:00</strong><br>
           Физика<br>РМз-22-1,6,8, ТПМбз-22-1<br>
-          Корпус 3 · ауд. 520 · Член комиссии<br><small class="muted">Источник · 357-1ах ФПС_ФИЗИКА, стр. 1</small></li></ul></details><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
+          Корпус 3 · ауд. 520 · Член комиссии<br><small class="muted">Источник · 357-1ах ФПС_ФИЗИКА, стр. 1</small></li></ul></details><p id="no-retakes" class="muted" hidden>Актуальный график пересдач в карточке не указан.</p><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
       </section></div>
           </div>
           <aside class="teacher-sidebar"><section class="side-panel"><h2>Источник расписания</h2>
             <p>Расписание взято с <a href="https://timetable.tyuiu.ru/">сайта ТИУ ↗</a></p>
-            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1159">Очная форма ↗</a></li></ul><p class="side-note">Загружено 07.11.2026, 02:47 по Тюмени.</p>
+            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1159">Очная форма ↗</a></li></ul><p class="side-note">Загружено 21.11.2026, 05:26 по Тюмени.</p>
           </section><section class="side-panel"><h2>Контакты кафедры</h2>
           <p class="muted">Адрес, кабинет, этаж и контакты кафедры в карточке не указаны.</p>
           <p><a href="https://www.tyuiu.ru/sveden/struct/">Справочник ТИУ ↗</a></p></section></aside>
+          <script src="../../assets/retakes.js" defer></script>
         </div>
       </div></main>
   <footer class="container app-footer">

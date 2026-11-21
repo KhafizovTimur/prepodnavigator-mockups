@@ -31,6 +31,7 @@
         <div class="teacher-layout">
           <div>
           <section aria-labelledby="schedule-title">
+            <p class="week-panel"><strong id="next-retake"></strong> <a href="#retakes">К графику пересдач ↓</a></p>
             <div class="week-panel"><h2 id="schedule-title">Расписание занятий</h2>
               <form class="week-form" action="./" method="get">
                 <input type="hidden" name="q" value=""><input type="hidden" name="by" value="name">
@@ -77,20 +78,21 @@
     </li></ul></section></template><template id="empty-schedule"><div class="empty-state"><h3>Нет занятий в этом разделе</h3><p>Выберите другую неделю или проверьте расписание на сайте ТИУ.</p></div></template>
           </section>
           <div class="appointment-panels">
-      <section class="side-panel"><h2>Консультации</h2><p>В ИМЦТ консультации проходят по <a href="#retakes">общему графику приёма</a>.</p></section>
+      <section class="side-panel"><h2>Консультации</h2><p id="weekly-consultations">В ИМЦТ консультации проходят по <a href="#retakes">общему графику приёма</a>.</p></section>
       <section class="side-panel" id="retakes"><h2>Пересдачи</h2>
-        <h3>Еженедельный приём</h3><ul class="retake-list"><li><strong>Суббота · 09:45–10:30</strong><br>
+        <div id="weekly"><h3>Еженедельный приём</h3><ul class="retake-list"><li data-weekday="6" data-from="2026-09-15" data-until="2026-12-30" data-parity="" data-time="09:45–10:30" data-place="Корпус 7 · ауд. 1608"><strong>Суббота · 09:45–10:30</strong><br>
               Корпус 7 · ауд. 1608<br>
               <small class="muted">С 15.09.2026 по 30.12.2026</small><br>
-              <small class="muted">Источник · График приема академ задолженностей ИМЦТ, стр. 5</small></li></ul><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
+              <small class="muted">Источник · График приема академ задолженностей ИМЦТ, стр. 5</small></li></ul></div><p id="no-retakes" class="muted" hidden>Актуальный график пересдач в карточке не указан.</p><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
       </section></div>
           </div>
           <aside class="teacher-sidebar"><section class="side-panel"><h2>Источник расписания</h2>
             <p>Расписание взято с <a href="https://timetable.tyuiu.ru/">сайта ТИУ ↗</a></p>
-            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1799">Очная форма ↗</a></li></ul><p class="side-note">Загружено 07.11.2026, 02:47 по Тюмени.</p>
+            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/1799">Очная форма ↗</a></li></ul><p class="side-note">Загружено 21.11.2026, 05:26 по Тюмени.</p>
           </section><section class="side-panel"><h2>Контакты кафедры</h2>
           <p class="muted">Адрес, кабинет, этаж и контакты кафедры в карточке не указаны.</p>
           <p><a href="https://www.tyuiu.ru/sveden/struct/">Справочник ТИУ ↗</a></p></section></aside>
+          <script src="../../assets/retakes.js" defer></script>
         </div>
       </div></main>
   <footer class="container app-footer">

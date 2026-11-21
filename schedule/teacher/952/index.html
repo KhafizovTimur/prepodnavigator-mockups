@@ -31,6 +31,7 @@
         <div class="teacher-layout">
           <div>
           <section aria-labelledby="schedule-title">
+            <p class="week-panel"><strong id="next-retake"></strong> <a href="#retakes">К графику пересдач ↓</a></p>
             <div class="week-panel"><h2 id="schedule-title">Расписание занятий</h2>
               <form class="week-form" action="./" method="get">
                 <input type="hidden" name="q" value=""><input type="hidden" name="by" value="name">
@@ -55,25 +56,26 @@
           <div class="appointment-panels">
       <section class="side-panel"><h2>Консультации</h2><p class="muted">График консультаций в карточке не указан.</p></section>
       <section class="side-panel" id="retakes"><h2>Пересдачи</h2>
-        <h3>Комиссии по датам</h3><ul class="retake-list"><li><strong>10.11.2026 · 11:30–13:00</strong><br>
+        <div id="commissions"><h3>Комиссии по датам</h3><ul class="retake-list"><li data-date="2026-12-01" data-time="11:30–13:00" data-place="Корпус 2 · ул. Мельникайте, 72 · спортивный зал"><strong>01.12.2026 · 11:30–13:00</strong><br>
           Прикладная физическая культура; Общая физическая подготовка; Физическая культура и спорт<br>Очная форма, по списку институтов в распоряжении<br>
-          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li><li><strong>01.12.2026 · 11:30–13:00</strong><br>
+          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li><li data-date="2026-12-15" data-time="11:30–13:00" data-place="Корпус 2 · ул. Мельникайте, 72 · спортивный зал"><strong>15.12.2026 · 11:30–13:00</strong><br>
           Прикладная физическая культура; Общая физическая подготовка; Физическая культура и спорт<br>Очная форма, по списку институтов в распоряжении<br>
-          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li><li><strong>15.12.2026 · 11:30–13:00</strong><br>
+          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li></ul></div><details id="past-commissions"><summary>Прошедшие комиссии</summary><ul class="retake-list"><li data-date="2026-10-21" data-time="13:00–13:45" data-place="Корпус 2 · ул. Мельникайте, 72 · спортивный зал"><strong>21.10.2026 · 13:00–13:45</strong><br>
           Прикладная физическая культура; Общая физическая подготовка; Физическая культура и спорт<br>Очная форма, по списку институтов в распоряжении<br>
-          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li></ul><details><summary>Прошедшие комиссии</summary><ul class="retake-list"><li><strong>21.10.2026 · 13:00–13:45</strong><br>
+          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li><li data-date="2026-10-27" data-time="11:30–13:00" data-place="Корпус 2 · ул. Мельникайте, 72 · спортивный зал"><strong>27.10.2026 · 11:30–13:00</strong><br>
           Прикладная физическая культура; Общая физическая подготовка; Физическая культура и спорт<br>Очная форма, по списку институтов в распоряжении<br>
-          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li><li><strong>27.10.2026 · 11:30–13:00</strong><br>
+          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li><li data-date="2026-11-10" data-time="11:30–13:00" data-place="Корпус 2 · ул. Мельникайте, 72 · спортивный зал"><strong>10.11.2026 · 11:30–13:00</strong><br>
           Прикладная физическая культура; Общая физическая подготовка; Физическая культура и спорт<br>Очная форма, по списку институтов в распоряжении<br>
-          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li></ul></details><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
+          Корпус 2 · ул. Мельникайте, 72 · спортивный зал · Член комиссии<br><small class="muted">Источник · Распоряжение 2 корпус очное, стр. 1</small></li></ul></details><p id="no-retakes" class="muted" hidden>Актуальный график пересдач в карточке не указан.</p><p><a href="https://educon2.tyuiu.ru/course/view.php?id=28774">Распоряжения ИМЦТ в Educon2 ↗</a></p>
       </section></div>
           </div>
           <aside class="teacher-sidebar"><section class="side-panel"><h2>Источник расписания</h2>
             <p>Расписание взято с <a href="https://timetable.tyuiu.ru/">сайта ТИУ ↗</a></p>
-            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/952">Очная форма ↗</a></li></ul><p class="side-note">Загружено 07.11.2026, 02:47 по Тюмени.</p>
+            <ul><li><a href="https://timetable.tyuiu.ru/schedule/teacher/952">Очная форма ↗</a></li></ul><p class="side-note">Загружено 21.11.2026, 05:26 по Тюмени.</p>
           </section><section class="side-panel"><h2>Контакты кафедры</h2>
           <p class="muted">Адрес, кабинет, этаж и контакты кафедры в карточке не указаны.</p>
           <p><a href="https://www.tyuiu.ru/sveden/struct/">Справочник ТИУ ↗</a></p></section></aside>
+          <script src="../../assets/retakes.js" defer></script>
         </div>
       </div></main>
   <footer class="container app-footer">

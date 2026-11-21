@@ -1,0 +1,61 @@
+name: Кафедра Онлайн · расписание
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: kafedra-pages-production
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Проверить импорт расписания
+        working-directory: project
+        run: python3 -m unittest discover -s tests
+      - name: Загрузить полное расписание ТИУ
+        if: github.event_name != 'push'
+        working-directory: project
+        run: |
+          python3 -m timetable.importer
+          python3 -m timetable.export_pages "$RUNNER_TEMP/new-schedule"
+      - name: Сохранить проверенное обновление
+        if: github.event_name != 'push'
+        run: |
+          rsync -a --delete "$RUNNER_TEMP/new-schedule/" schedule/
+          git add -- schedule
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Обновить расписание ТИУ'
+            git push origin HEAD:main
+          fi
+      - name: Собрать файлы сайта
+        run: |
+          mkdir "$RUNNER_TEMP/site"
+          cp -R .nojekyll index.html app.js style.css assets evidence schedule "$RUNNER_TEMP/site/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publish.outputs.page_url }}
+    steps:
+      - id: publish
+        uses: actions/deploy-pages@v4
+

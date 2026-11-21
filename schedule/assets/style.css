@@ -44,6 +44,19 @@ h3 { font-size: 1rem; }
 .brand-name { font-size: 1.27rem; font-weight: 800; line-height: 1.12; letter-spacing: -0.035em; }
 .brand-name span { display: block; color: var(--blue); }
 
+.favorites { position: relative; z-index: 1; margin-top: 16px; }
+.favorites summary { width: fit-content; cursor: pointer; color: var(--blue); font-weight: 600; }
+.favorite-count { font-variant-numeric: tabular-nums; margin-left: 4px; }
+.favorites ul { padding-left: 1.4rem; }
+.favorites li + li { margin-top: 6px; }
+.favorites li button { border: 0; background: transparent; color: var(--muted); margin-left: 8px; text-decoration: underline; }
+.favorites [data-favorite-empty] { margin-top: 8px; }
+.teacher-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 20px; }
+.teacher-actions[hidden] { display: none; }
+.teacher-actions [aria-pressed="true"] { background: var(--pale); color: var(--blue); border-color: var(--blue); }
+.teacher-actions label { width: 100%; }
+.teacher-actions input { width: min(100%, 32rem); padding: 6px 8px; }
+
 .search-hero { position: relative; overflow: hidden; background: var(--hero); border-bottom: 1px solid #e5edf8; }
 .search-hero::after {
   position: absolute;

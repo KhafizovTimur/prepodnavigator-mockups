@@ -6,7 +6,7 @@
   <title>Поиск преподавателя · Кафедра Онлайн</title>
   <link rel="stylesheet" href="./assets/fonts.css">
   <link rel="stylesheet" href="./assets/style.css">
-  <script src="./pages.js" defer></script><script src="./assets/search-mode.js" defer></script>
+  <script src="./pages.js" defer></script><script src="./assets/teacher-tools.js" defer></script><script src="./assets/search-mode.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">К содержанию</a>
@@ -37,6 +37,12 @@
           </div><button class="btn btn-primary" type="submit">Найти <span aria-hidden="true">→</span></button></div>
           <p id="search-hint" class="muted">Например, <a href="./?q=%D0%9A%D0%BE%D0%BD%D0%B5%D0%B2">Конев</a> по фамилии или <a href="./?q=%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0&amp;by=subject">Математика</a> по предмету.</p>
         </form>
+        <details class="favorites" data-favorites data-card-pattern="./teacher/ID/" hidden>
+          <summary>Избранные преподаватели <span class="favorite-count"></span></summary>
+          <p class="muted" data-favorite-empty>Откройте карточку преподавателя и нажмите «В избранное».</p>
+          <ul></ul>
+          <span class="muted" role="status"></span>
+        </details>
       </div></section>
       <section class="container search-results" aria-labelledby="results-title">
         <div class="results-heading"><h2 id="results-title">Каталог преподавателей</h2><span id="results-total"></span></div>

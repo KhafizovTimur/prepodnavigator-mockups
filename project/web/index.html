@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>$title · Кафедра Онлайн</title>
+  <link rel="stylesheet" href="${root}assets/fonts.css">
+  <link rel="stylesheet" href="${root}assets/style.css">
+  $script
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержанию</a>
+  <div class="project-strip">
+    <div class="container strip-inner"><strong>Учебный проект</strong><a href="$source">Расписание взято с сайта ТИУ ↗</a></div>
+  </div>
+  <header class="app-header">
+    <div class="container header-inner">
+      <a class="brand" href="$root" aria-label="Кафедра Онлайн — на главную">
+        <img src="${root}assets/tiu-logo.svg" width="142" height="36" alt="">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-name">Кафедра <span>Онлайн</span></span>
+      </a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">$content</main>
+  <footer class="container app-footer">
+    <span>Кафедра Онлайн · учебный проект ИСПб-25-1</span>
+    <a href="$source">Источник расписания · timetable.tyuiu.ru ↗</a>
+  </footer>
+</body>
+</html>

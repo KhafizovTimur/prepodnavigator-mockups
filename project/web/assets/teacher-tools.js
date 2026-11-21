@@ -43,7 +43,7 @@
           try {
             localStorage.setItem(storageKey, JSON.stringify(savedTeachers().filter(item => item.id !== row.id)));
             render();
-            favorites.querySelector("summary").focus();
+            (favorites.querySelector("li a") || document.querySelector("#query")).focus();
           } catch {
             favorites.querySelector('[role="status"]').textContent = "Браузер запретил изменить избранное.";
           }
@@ -51,9 +51,7 @@
         item.append(link, remove);
         list.append(item);
       }
-      favorites.querySelector(".favorite-count").textContent = String(rows.length);
-      favorites.querySelector("[data-favorite-empty]").hidden = rows.length > 0;
-      favorites.hidden = false;
+      favorites.hidden = rows.length === 0;
     }
   }
 

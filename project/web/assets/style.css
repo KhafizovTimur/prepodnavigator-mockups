@@ -45,12 +45,16 @@ h3 { font-size: 1rem; }
 .brand-name span { display: block; color: var(--blue); }
 
 .favorites { position: relative; z-index: 1; margin-top: 16px; }
-.favorites summary { width: fit-content; cursor: pointer; color: var(--blue); font-weight: 600; }
-.favorite-count { font-variant-numeric: tabular-nums; margin-left: 4px; }
-.favorites ul { padding-left: 1.4rem; }
-.favorites li + li { margin-top: 6px; }
-.favorites li button { border: 0; background: transparent; color: var(--muted); margin-left: 8px; text-decoration: underline; }
-.favorites [data-favorite-empty] { margin-top: 8px; }
+.favorites h2 { font-size: .94rem; }
+.favorites ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 8px 0 0; }
+.favorites li { display: flex; align-items: stretch; border: 1px solid #bacbe4; border-radius: 6px; background: white; max-width: 100%; }
+.favorites li a { align-content: center; min-height: 44px; padding: 7px 12px; font-weight: 600; overflow-wrap: anywhere; }
+.favorites li button { border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--muted); padding-inline: 10px; }
+.retakes-entry { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 650; }
+.event-time { color: var(--blue); font-weight: 700; }
+.parity-list { margin-bottom: 16px; }
+.parity-list summary { width: fit-content; cursor: pointer; color: var(--blue); min-height: 44px; align-content: center; }
+.parity-list p { margin-bottom: 10px; }
 .teacher-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 20px; }
 .teacher-actions[hidden] { display: none; }
 .teacher-actions [aria-pressed="true"] { background: var(--pale); color: var(--blue); border-color: var(--blue); }
@@ -135,7 +139,7 @@ h3 { font-size: 1rem; }
   color: var(--ink);
   text-decoration: none;
 }
-.teacher-row:hover { border-color: #a7bdee; background: #fbfdff; }
+.teacher-row:hover, .teacher-row:active { border-color: #a7bdee; background: var(--pale); }
 .initials {
   display: grid;
   place-items: center;
@@ -172,19 +176,26 @@ h3 { font-size: 1rem; }
 .week-form select { min-width: 0; max-width: 100%; min-height: 44px; padding: 6px 9px; border: 1px solid #aebfdb; border-radius: 5px; background: white; color: var(--ink); }
 .schedule-day + .schedule-day { margin-top: 20px; }
 .schedule-day h3 { padding: 5px 0 9px; }
-.schedule-row {
-  display: grid;
-  grid-template-columns: minmax(96px, auto) minmax(0, 1fr) minmax(0, 26%);
-  gap: 12px;
-  padding: 12px 0;
-  border-top: 1px solid var(--line);
-  font-size: 0.88rem;
-  overflow-wrap: anywhere;
-}
-.schedule-row p, .where { color: var(--muted); font-size: 0.79rem; }
-.time { font-weight: 650; font-variant-numeric: tabular-nums; }
-.where { text-align: right; }
-.where span { display: block; }
+.week-form[hidden], .week-picker[hidden], .week-parity[hidden] { display: none; }
+.week-picker, .week-track { display: flex; align-items: center; gap: 8px; }
+.week-picker { flex-wrap: wrap; margin-top: 12px; }
+.week-track { border: 1px solid #bbcae1; background: white; border-radius: 6px; }
+.week-track .btn { border: 0; width: 44px; font-size: 1.35rem; }
+.week-track strong { min-width: 9em; text-align: center; font-size: .88rem; }
+.week-track button:disabled { color: #8490a3; cursor: default; background: transparent; }
+.week-parity { min-height: 44px; border: 0; background: transparent; color: var(--blue); text-decoration: underline; }
+.today-label { color: var(--blue); margin-left: 9px; }
+.lesson { border-top: 1px solid var(--line); }
+.lesson summary { display: grid; grid-template-columns: minmax(105px, auto) 1fr 18px; grid-template-areas: "time room arrow" "subject location arrow"; align-items: baseline; gap: 3px 18px; padding: 12px 8px; cursor: pointer; overflow-wrap: anywhere; }
+.lesson summary::-webkit-details-marker { display: none; }
+.lesson summary:hover, .lesson summary:active, .lesson[open] { background: var(--pale); }
+.lesson .time { grid-area: time; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lesson-room { grid-area: room; font-weight: 650; color: var(--blue); }
+.lesson-subject { grid-area: subject; font-size: .87rem; }
+.lesson-place { grid-area: location; font-size: .8rem; color: var(--muted); }
+.lesson-arrow { grid-area: arrow; align-self: center; color: var(--blue); font-size: 1.5rem; }
+.lesson[open] .lesson-arrow { transform: rotate(90deg); }
+.lesson p { padding: 0 8px 12px; font-size: .84rem; overflow-wrap: anywhere; }
 .side-panel { padding: 17px; border: 1px solid var(--line); border-radius: 6px; font-size: 0.86rem; overflow-wrap: anywhere; }
 .side-panel h2 { margin-bottom: 9px; }
 .side-panel ul { margin-block: 8px 14px; padding-inline-start: 17px; }
@@ -239,7 +250,6 @@ h3 { font-size: 1rem; }
   .initials { width: 37px; height: 37px; }
   .teacher-layout { grid-template-columns: minmax(0, 1fr); }
   .teacher-heading .initials { width: 44px; height: 44px; font-size: 1rem; }
-  .schedule-row { grid-template-columns: 91px minmax(0, 1fr); gap: 5px 9px; }
-  .where { grid-column: 2; text-align: left; }
+  .lesson summary { grid-template-columns: 1fr auto 14px; grid-template-areas: "time room arrow" "subject subject arrow" "location location arrow"; gap: 4px 8px; }
   .app-footer { flex-direction: column; }
 }

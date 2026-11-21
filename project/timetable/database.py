@@ -53,9 +53,12 @@ def search_key(value):
 
 def search(db, query, mode, page):
     words = search_key(query).split()
-    if mode == "subject" and words:
+    if mode in ("subject", "all") and words:
         predicate = " AND ".join(["instr(l.subject_key, ?) > 0"] * len(words))
         match = f"WHERE EXISTS (SELECT 1 FROM lessons l WHERE l.teacher_id = t.id AND {predicate})"
+        if mode == "all":
+            match += " OR (" + " AND ".join(["instr(t.name_key, ?) > 0"] * len(words)) + ")"
+            words = words * 2
     else:
         predicate = " AND ".join(["instr(t.name_key, ?) > 0"] * len(words))
         match = f"WHERE {predicate}" if predicate else ""

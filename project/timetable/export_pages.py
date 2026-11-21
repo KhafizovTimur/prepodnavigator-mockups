@@ -7,7 +7,26 @@ from pathlib import Path
 
 from .database import PAGE_SIZE, connect
 from .source import ROOT
-from .views import affiliation, default_period, search_view, teacher_view
+from .views import RETAKES, affiliation, default_period, search_view, teacher_view
+
+
+def catalog_data(db, teachers):
+    subjects = defaultdict(list)
+    for row in db.execute("SELECT teacher_id, MIN(subject) FROM lessons GROUP BY teacher_id, subject_key ORDER BY subject_key"):
+        subjects[row[0]].append(row[1])
+    records = []
+    for teacher in teachers:
+        teacher_id = teacher["id"]
+        entry = {"id": teacher_id, "name": teacher["name"], "affiliation": affiliation(teacher),
+                 "subjects": subjects[teacher_id]}
+        retakes = RETAKES["teachers"].get(str(teacher_id), {})
+        if retakes.get("name") == teacher["name"]:
+            entry["sessions"] = [
+                {key: row[key] for key in ("date", "weekday", "from", "until", "parity", "time", "place", "note", "subject") if key in row}
+                for row in [*retakes["weekly"], *retakes["commissions"]]
+            ]
+        records.append(entry)
+    return {"pageSize": PAGE_SIZE, "teachers": records}
 
 
 def export(destination):
@@ -23,9 +42,7 @@ def export(destination):
             if row["date"]:
                 weeks.add(row["period"])
 
-        subjects = defaultdict(list)
-        for row in db.execute("SELECT teacher_id, MIN(subject) FROM lessons GROUP BY teacher_id, subject_key ORDER BY subject_key"):
-            subjects[row[0]].append(row[1])
+        catalog = catalog_data(db, teachers)
 
     if not teachers or not schedules:
         raise ValueError("Сначала загрузите расписание в базу")
@@ -35,13 +52,6 @@ def export(destination):
     shutil.copytree(web / "assets", destination / "assets")
     shutil.copyfile(web / "pages.js", destination / "pages.js")
     (destination / "index.html").write_text(search_view("", "name", [], {}, 0, 1, 1, static=True), encoding="utf-8")
-    catalog = {
-        "pageSize": PAGE_SIZE,
-        "teachers": [
-            {"id": row["id"], "name": row["name"], "affiliation": affiliation(row), "subjects": subjects[row["id"]]}
-            for row in teachers
-        ],
-    }
     (destination / "catalog.json").write_text(json.dumps(catalog, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     weeks = sorted(weeks)
     for teacher in teachers:

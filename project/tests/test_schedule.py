@@ -48,6 +48,7 @@ class ScheduleTest(unittest.TestCase):
                 self.assertEqual(json.loads(dated["groups"]), [["А-1", 0], ["А-2", 1]])
                 recurring = db.execute("SELECT date FROM lessons WHERE period = 'even'").fetchone()
                 self.assertEqual(recurring["date"], "")
-                for query, mode in [("семенова", "name"), ("математика", "subject")]:
+                for query, mode in [("семенова", "name"), ("математика", "subject"),
+                                    ("семенова", "all"), ("математика", "all")]:
                     with self.subTest(query=query, mode=mode):
                         self.assertEqual(search(db, query, mode, 1)[1], 1)

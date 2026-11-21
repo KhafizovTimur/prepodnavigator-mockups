@@ -27,11 +27,9 @@ def url(path="/", **params):
     return escape(f"{path}?{query}" if query else path)
 
 
-def layout(title, content, root="/", *, pages=False, search=False):
-    script = f'<script src="{root}pages.js" defer></script>' if pages else ""
+def layout(title, content, root="/"):
+    script = f'<script src="{root}assets/session-dates.js" defer></script><script src="{root}pages.js" defer></script>'
     script += f'<script src="{root}assets/teacher-tools.js" defer></script>'
-    if search:
-        script += f'<script src="{root}assets/search-mode.js" defer></script>'
     return LAYOUT.substitute(title=escape(title), source=SOURCE, content=content, root=root, script=script)
 
 
@@ -69,11 +67,11 @@ def pagination(query, mode, page, pages):
     return f'<nav class="pagination" aria-label="Страницы результатов">{previous}<span>Страница {page} из {pages}</span>{following}</nav>'
 
 
-def search_view(query, mode, teachers, subjects, total, page, pages, *, static=False):
-    name_checked = "checked" if mode == "name" else ""
-    subject_checked = "checked" if mode == "subject" else ""
+def search_view(query, mode, teachers, subjects, total, page, pages, *, static=False, retake_index=False):
     root = "./" if static else "/"
-    if static:
+    if retake_index:
+        results = '<p>Загружаем графики приёма…</p><noscript>Включите JavaScript, чтобы посмотреть ближайшие пересдачи.</noscript>'
+    elif static:
         results = '''<p>Загружаем каталог преподавателей…</p>
           <noscript><p>Включите JavaScript в браузере, чтобы искать преподавателей.</p></noscript>'''
     elif teachers:
@@ -86,27 +84,24 @@ def search_view(query, mode, teachers, subjects, total, page, pages, *, static=F
         <h1>Найти преподавателя</h1>
         <p class="lead">Посмотрите, когда и в каком кабинете проходят занятия.</p>
         <form class="search-form" action="{root}" method="get" role="search">
-          <fieldset class="search-types"><legend class="visually-hidden">Искать</legend>
-            <label><input type="radio" name="by" value="name" {name_checked}><span>По ФИО</span></label>
-            <label><input type="radio" name="by" value="subject" {subject_checked}><span>По предмету</span></label>
-          </fieldset>
           <div class="search-box"><div class="search-input-wrap"><span class="search-icon" aria-hidden="true"></span>
             <label for="query" class="visually-hidden">Фамилия или название предмета</label>
             <input type="search" id="query" name="q" value="{escape(query)}" maxlength="120" autocomplete="off" aria-describedby="search-hint" placeholder="Фамилия или название предмета">
           </div><button class="btn btn-primary" type="submit">Найти <span aria-hidden="true">→</span></button></div>
-          <p id="search-hint" class="muted">Например, <a href="{url(root, q='Конев')}">Конев</a> по фамилии или <a href="{url(root, q='Математика', by='subject')}">Математика</a> по предмету.</p>
+          <p id="search-hint" class="muted">Например, <a href="{url(root, q='Конев')}">Конев</a> или <a href="{url(root, q='Математика')}">Математика</a>.</p>
         </form>
-        <details class="favorites" data-favorites data-card-pattern="{root}teacher/ID{'/' if static else ''}" hidden>
-          <summary>Избранные преподаватели <span class="favorite-count"></span></summary>
-          <p class="muted" data-favorite-empty>Откройте карточку преподавателя и нажмите «В избранное».</p>
+        <a class="retakes-entry" href="?view=retakes#results-title">Ближайшие пересдачи <span aria-hidden="true">›</span></a>
+        <section class="favorites" aria-labelledby="favorites-title" data-favorites data-card-pattern="{root}teacher/ID{'/' if static else ''}" hidden>
+          <h2 id="favorites-title">Избранные преподаватели</h2>
           <ul></ul>
           <span class="muted" role="status"></span>
-        </details>
+        </section>
       </div></section>
       <section class="container search-results" aria-labelledby="results-title">
-        <div class="results-heading"><h2 id="results-title">{'Результаты поиска' if query else 'Каталог преподавателей'}</h2><span id="results-total">{'' if static else f'Всего: {total}'}</span></div>
-        <div id="results" aria-live="polite">{results}</div>
-      </section>''', root, pages=static, search=True)
+        <div class="results-heading"><h2 id="results-title" tabindex="-1">{'Результаты поиска' if query else 'Каталог преподавателей'}</h2><span id="results-total" role="status">{'' if static else f'Всего: {total}'}</span></div>
+        <div id="parity-sessions"></div>
+        <div id="results">{results}</div>
+      </section>''', root)
 
 
 def week_label(value):
@@ -132,16 +127,17 @@ def default_period(available):
 def lesson_view(lesson):
     groups = ", ".join(f"{group} (подгр. {subgroup})" if subgroup else group for group, subgroup in json.loads(lesson["groups"]))
     details = " · ".join(filter(None, (lesson["kind"], groups)))
-    if lesson["building"]:
-        place = f"{lesson['building']} · каб. {lesson['room']}" if lesson["room"] else lesson["building"]
-    else:
-        place = lesson["room"] or lesson["address"] or "Кабинет не указан"
-    address = f'<span>{escape(lesson["address"])}</span>' if lesson["address"] and lesson["address"] != place else ""
-    return f'''<li class="schedule-row">
+    room = lesson["room"]
+    if room and lesson["building"]:
+        room = f"Каб. {room}"
+    location = " · ".join(filter(None, (lesson["building"], lesson["address"])))
+    return f'''<li><details class="lesson"><summary>
       <span class="time">{lesson['starts']}–{lesson['ends']}</span>
-      <div><strong>{escape(lesson['subject'])}</strong><p>{escape(details)}</p></div>
-      <div class="where">{escape(place)}{address}</div>
-    </li>'''
+      <span class="lesson-room">{escape(room or "Кабинет не указан")}</span>
+      <span class="lesson-subject">{escape(lesson["subject"])}</span>
+      <span class="lesson-place">{escape(location)}</span>
+      <span class="lesson-arrow" aria-hidden="true">›</span></summary>
+      <p>{escape(details or "Вид занятия и группа не указаны.")}</p></details></li>'''
 
 
 def day_view(lessons):
@@ -151,7 +147,7 @@ def day_view(lessons):
         day = date.fromisoformat(first["date"])
         heading += f", {day.day} {MONTHS[day.month - 1]}"
     rows = "".join(lesson_view(lesson) for lesson in lessons)
-    return f'<section class="schedule-day"><h3>{heading}</h3><ul>{rows}</ul></section>'
+    return f'<section class="schedule-day" data-date="{first["date"]}"><h3>{heading}</h3><ul>{rows}</ul></section>'
 
 
 def schedule_view(lessons):
@@ -275,7 +271,7 @@ def appointments_view(teacher):
       </section></div>'''
 
 
-def teacher_view(teacher, lessons, weeks, period, query, mode, page, updated, *, static_schedules=None):
+def teacher_view(teacher, lessons, weeks, period, query, mode, page, updated, *, static_schedules=None, available=None):
     static = static_schedules is not None
     root = "../../" if static else "/"
     back = url(root, q=query, by=mode, page=page if page > 1 else None)
@@ -284,7 +280,9 @@ def teacher_view(teacher, lessons, weeks, period, query, mode, page, updated, *,
     if static:
         templates = "".join(f'<template data-period="{key}">{schedule_view(rows)}</template>' for key, rows in static_schedules.items())
         templates += f'<template id="empty-schedule">{schedule_view([])}</template>'
-    periods = {**PARITIES, **{week: week_label(week) for week in weeks}}
+    available = set(static_schedules) if static else set(available or ())
+    periods = {key: label for key, label in PARITIES.items() if key in available or key == period}
+    periods.update({week: week_label(week) for week in weeks})
     options = "".join(f'<option value="{key}"{" selected" if key == period else ""}>{value}</option>' for key, value in periods.items())
     sources = json.loads(teacher["sources"])
     links = "".join(f'<li><a href="{escape(source["url"])}">{escape(FORMS.get(source["form"], "Расписание ТИУ"))} ↗</a></li>' for source in sources)
@@ -314,6 +312,13 @@ def teacher_view(teacher, lessons, weeks, period, query, mode, page, updated, *,
                 <select id="period" name="period" aria-describedby="period-note">{options}</select>
                 <button type="submit" class="btn">Показать</button>
               </form>
+              <div class="week-picker" hidden>
+                <div class="week-track"><button class="btn" type="button" data-prev aria-label="Предыдущая неделя">‹</button>
+                  <strong data-week-label aria-live="polite"></strong>
+                  <button class="btn" type="button" data-next aria-label="Следующая неделя">›</button></div>
+                <button class="btn" type="button" data-today>Сегодня</button>
+                <button class="week-parity" type="button" data-parity hidden>По чётности</button>
+              </div>
               <p id="period-note" class="muted">{note}</p>
             </div>
             <div id="week-schedule" aria-live="polite">{schedule_view(lessons)}</div>
@@ -327,7 +332,7 @@ def teacher_view(teacher, lessons, weeks, period, query, mode, page, updated, *,
           </section>{contact_view(teacher)}</aside>
           <script src="{root}assets/retakes.js" defer></script>
         </div>
-      </div>''', root, pages=static)
+      </div>''', root)
 
 
 def message_view(title, text):

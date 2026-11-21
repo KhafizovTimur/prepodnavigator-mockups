@@ -1,13 +1,14 @@
+import gzip
 import json
 import re
-import shutil
-import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from html.parser import HTMLParser
+from http.client import HTTPException
 from pathlib import Path
 from tempfile import mkdtemp
 from time import sleep
+from urllib.request import ProxyHandler, Request, build_opener, getproxies_environment
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "https://timetable.tyuiu.ru/"
@@ -34,23 +35,24 @@ class InertiaPage(HTMLParser):
 
 
 def read_page(url, component):
-    curl = shutil.which("curl.exe") or shutil.which("curl")
-    if not curl:
-        raise RuntimeError("Для загрузки расписания установите curl.")
+    opener = build_opener(ProxyHandler(getproxies_environment()))
+    request = Request(url, headers={"Accept-Encoding": "gzip", "User-Agent": "Kafedra-Online/1.0"})
     for attempt in range(3):
-        result = subprocess.run(
-            [curl, "-fsS", "--compressed", "--connect-timeout", "6", "--max-time", "20", url],
-            capture_output=True,
-        )
-        if result.returncode == 0:
-            parser = InertiaPage()
-            parser.feed(result.stdout.decode("utf-8"))
-            if parser.payload and parser.payload["component"] == component:
-                return parser.payload["props"]
-            raise ValueError(f"Формат страницы ТИУ изменился: {url}")
-        if attempt < 2:
+        try:
+            with opener.open(request, timeout=20) as response:
+                data = response.read()
+                if response.headers.get("Content-Encoding", "").lower() == "gzip":
+                    data = gzip.decompress(data)
+            break
+        except (OSError, HTTPException, EOFError) as error:
+            if attempt == 2:
+                raise RuntimeError(f"Не удалось загрузить {url}: {error}") from error
             sleep(2 ** (attempt + 1))
-    raise RuntimeError(result.stderr.decode("utf-8", errors="replace").strip())
+    parser = InertiaPage()
+    parser.feed(data.decode("utf-8"))
+    if parser.payload and parser.payload["component"] == component:
+        return parser.payload["props"]
+    raise ValueError(f"Формат страницы ТИУ изменился: {url}")
 
 
 def write_json(path, data):

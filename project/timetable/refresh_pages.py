@@ -19,7 +19,8 @@ DATA_FILE = Path("project/data/schedule.sqlite3.gz")
 
 def git(*args, cwd):
     env = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "never"}
-    result = subprocess.run(["git", *args], cwd=cwd, env=env, capture_output=True, timeout=240)
+    result = subprocess.run(["git", *args], cwd=cwd, env=env, capture_output=True, timeout=240,
+                            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     if result.returncode:
         raise RuntimeError(result.stderr.decode("utf-8", errors="replace"))
 

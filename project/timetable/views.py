@@ -86,7 +86,7 @@ def search_view(query, mode, teachers, subjects, total, page, pages, *, static=F
         <form class="search-form" action="{root}" method="get" role="search">
           <div class="search-box"><div class="search-input-wrap"><span class="search-icon" aria-hidden="true"></span>
             <label for="query" class="visually-hidden">Фамилия или название предмета</label>
-            <input type="search" id="query" name="q" value="{escape(query)}" maxlength="120" autocomplete="off" aria-describedby="search-hint" placeholder="Фамилия или название предмета">
+            <input type="search" id="query" name="q" value="{escape(query)}" maxlength="120" autocomplete="off" aria-describedby="search-hint" placeholder="Фамилия или предмет">
           </div><button class="btn btn-primary" type="submit">Найти <span aria-hidden="true">→</span></button></div>
           <p id="search-hint" class="muted">Например, <a href="{url(root, q='Конев')}">Конев</a> или <a href="{url(root, q='Математика')}">Математика</a>.</p>
         </form>

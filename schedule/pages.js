@@ -126,9 +126,14 @@ function showTeacher(period) {
     period.value = requested;
     selectWeek(requested);
   }
+  let displayedWeek = period.value;
   period.form.addEventListener("submit", event => {
     event.preventDefault();
-    selectWeek(period.value);
+    if (period.value !== displayedWeek) {
+      schedule.classList.add("is-updated");
+      selectWeek(period.value);
+      displayedWeek = period.value;
+    }
     const url = new URL(location.href);
     url.searchParams.set("period", period.value);
     history.replaceState(null, "", url);

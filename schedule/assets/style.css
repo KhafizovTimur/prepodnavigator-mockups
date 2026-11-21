@@ -79,7 +79,7 @@ h3 { font-size: 1rem; }
   background: white;
   border: 1px solid #aebfdb;
   border-radius: 6px;
-  box-shadow: 0 4px 14px #224b9918;
+  box-shadow: 0 2px 6px #1b25300c;
 }
 .search-box:focus-within { border-color: var(--action); }
 #search-hint { margin-top: 10px; font-size: 0.85rem; }
@@ -181,6 +181,38 @@ h3 { font-size: 1rem; }
 .side-note { border-top: 1px solid var(--line); padding-top: 10px; color: var(--muted); }
 .app-footer { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 16px; padding-block: 15px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem; }
 .message p { margin-block: 10px 18px; }
+
+@keyframes show-content {
+  from { opacity: 0.65; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root { --motion-ease: cubic-bezier(0.22, 1, 0.36, 1); }
+
+  #results > :is(.teacher-list, .empty-state),
+  .side-panel details[open] > ul {
+    animation: show-content 200ms var(--motion-ease);
+  }
+
+  #week-schedule.is-updated > * {
+    animation: show-content 220ms var(--motion-ease);
+  }
+
+  .search-box, .teacher-row, .search-types span {
+    transition: border-color 150ms var(--motion-ease), background-color 150ms var(--motion-ease), color 150ms var(--motion-ease);
+  }
+
+  .row-arrow, .btn {
+    transition: transform 150ms var(--motion-ease), background-color 150ms var(--motion-ease);
+  }
+  .btn:active { transform: translateY(1px); }
+  .teacher-row:focus-visible .row-arrow { transform: translateX(3px); }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .teacher-row:hover .row-arrow { transform: translateX(3px); }
+}
 
 @media (max-width: 680px) {
   .header-inner { min-height: 0; flex-wrap: wrap; padding-block: 13px 4px; gap: 3px 20px; }

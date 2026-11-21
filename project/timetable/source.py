@@ -68,7 +68,7 @@ def download_teacher(snapshot, teacher):
     sleep(0.2)
 
 
-def download(snapshot=None):
+def download(snapshot=None, *, cache=CACHE):
     if snapshot is None:
         catalog = read_page(SOURCE, "Welcome")["teachers"]
         ids = {row["id"] for row in catalog}
@@ -78,8 +78,8 @@ def download(snapshot=None):
             expected = rf"{re.escape(SOURCE)}schedule/teacher/{re.escape(str(row['id']))}"
             if not str(row["id"]).isdigit() or not re.fullmatch(expected, row["url"]):
                 raise ValueError(f"Неизвестный адрес расписания: {row['url']}")
-        CACHE.mkdir(exist_ok=True)
-        snapshot = Path(mkdtemp(prefix="tiu-", dir=CACHE))
+        cache.mkdir(exist_ok=True)
+        snapshot = Path(mkdtemp(prefix="tiu-", dir=cache))
         write_json(snapshot / "catalog.json", catalog)
     else:
         catalog = json.loads((snapshot / "catalog.json").read_text(encoding="utf-8"))
